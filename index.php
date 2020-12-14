@@ -1,39 +1,50 @@
 <?php
 //include_once "controllers/gis_mapa.php"
-include_once "assets/dispatch.php"
+//require 'asstes/dispatch/dispatch.php'
+
 
 # sample JSON end point
-route('GET', '/books.json', function ($db, $config) {
-  $list = loadAllBooks($db);
-  $json = json_encode($list);
-  return response($json, 200, ['content-type' => 'application/json']);
-});
 
-# html end point
-route('GET', '/books/:id', function ($args, $db) {
-  $book = loadBookById($db, $args['id']);
-  $html = phtml(__DIR__.'/views/book', ['book' => $book]);
-  return response($html);
-});
+    require_once('route.php');
 
-# respond using a template
-route('GET', '/about', page(__DIR__.'/views/about'));
+    function home(){
+        echo 'This is home. Home template in HTML';
+    }
 
-# sample dependencies
-$config = require __DIR__.'/config.php';
-$db = createDBConnection($config['db']);
+    function array_de_coordenadas(){
+      $array_struc = array( "coordenates" => array("John" => "14.2343232, 52.124342", 
+      "Mary" => "15.2343232, 42.378742", 
+      "Peter" => "34.2343232, 34.367842", 
+      "Sally" => "65.2343232, 23.3345342" ));
 
-# arguments you pass here get forwarded to the route actions
-dispatch($db, $config);
+      echo json_encode($array_struc);
+
+    }
+
+    function contact_us(){
+        echo 'This is contact us page. Contact Us template in HTML.';
+    }
+
+    function page404(){
+        die('Page not found. Please try some different url.');
+    }
+
+    //If url is http://localhost/route/home or user is at the maion page(http://localhost/route/)
+    if($request == 'home' or $request == '')
+        home();
+    //If url is http://localhost/route/get_all
+    else if($request == 'get_all')
+        array_de_coordenadas();
+    //If url is http://localhost/route/contact-us
+    else if($request == 'contact-us')
+        contact_us();
+    //If user entered something else
+    else
+        page404();
+?>
 
 
-        $array_struc = array( "coordenates" => array("John" => "14.2343232, 52.124342", 
-                                "Mary" => "15.2343232, 42.378742", 
-                                "Peter" => "34.2343232, 34.367842", 
-                                "Sally" => "65.2343232, 23.3345342" ));
+       
 
-         echo json_encode($array_struc);
         
    
-
-?>
