@@ -14,7 +14,7 @@
     //          HTTP protocol + Server address(localhost or example.com) + requested uri (/route or /route/home)
     $current_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
     
-    //Current URL = http://localhost/route/something
+    //Current URL = http://localhost/route/somenthing
     //Site URL - http://localhost/route
 
     //Requested page = Current URL - Site URL
