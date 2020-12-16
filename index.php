@@ -8,7 +8,7 @@
     require_once('route.php');
 
     function home(){
-        echo 'This is home. Home template in HTML';
+        echo 'This is home. Home template in HTML yaaaaaaa';
     }
 
     function array_de_coordenadas(){
