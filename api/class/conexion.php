@@ -1,13 +1,12 @@
 <?php
 
   //Abrir conexion a la base de datos
-  $db = parse_ini_file("config/config.ini");
   
   function connect($db)
   {
       try {
-          $conn = new PDO("pgsql:host={$db['host']};dbname={$db['db']};charset=utf8", $db['username'], $db['password']);
-        
+          $conn = new PDO("pgsql:host={$db['host']};port={$db['port']};dbname={$db['db']}",$db['username'],$db['password']);
+          
           // set the PDO error mode to exception
           $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 

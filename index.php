@@ -1,10 +1,10 @@
 <?php
 
-include "api/controllers/gis_crud.php";
-include "utils.php";
+include "api/class/user.class.php";
+//include "utils.php";
 
 
-$dbConn =  connect($db);
+//$dbConn =  connect($db);
 
 /*
   listar todos los posts o solo uno
@@ -22,13 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET')
       exit();
 	  }
     else {
+
+            $users   = new user();
+			$result = $users->get_all();
+
+			echo json_encode(array("data"     => $result,
+								   "noticias" => "listados con éxito"
+							)
+			);
+
       //Mostrar lista de post
-      $sql = $dbConn->prepare("SELECT * FROM posts");
-      $sql->execute();
-      $sql->setFetchMode(PDO::FETCH_ASSOC);
-      header("HTTP/1.1 200 OK");
-      echo json_encode( $sql->fetchAll()  );
-      exit();
+    //   $sql = $dbConn->prepare("SELECT * FROM posts");
+    //   $sql->execute();
+    //   $sql->setFetchMode(PDO::FETCH_ASSOC);
+    //   header("HTTP/1.1 200 OK");
+    //   echo json_encode( $sql->fetchAll()  );
+    //   exit();
 	}
 }
 
@@ -89,48 +98,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT')
 //En caso de que ninguna de las opciones anteriores se haya ejecutado
 header("HTTP/1.1 400 Bad Request");
 
-?>
+
 
 
 
 # sample JSON end point
 
-    require_once('route.php');
+    // require_once('route.php');
 
-    function home(){
-        echo 'This is home. Home template in HTML yaaaaaaa';
-    }
+    // function home(){
+    //     echo 'This is home. Home template in HTML yaaaaaaa';
+    // }
 
-    function array_de_coordenadas(){
-      $array_struc = array( "coordenates" => array("John" => "14.2343232, 52.124342", 
-      "Mary" => "15.2343232, 42.378742", 
-      "Peter" => "34.2343232, 34.367842", 
-      "Sally" => "65.2343232, 23.3345342" ));
+    // function array_de_coordenadas(){
+    //   $array_struc = array( "coordenates" => array("John" => "14.2343232, 52.124342", 
+    //   "Mary" => "15.2343232, 42.378742", 
+    //   "Peter" => "34.2343232, 34.367842", 
+    //   "Sally" => "65.2343232, 23.3345342" ));
 
-      echo json_encode($array_struc);
+    //   echo json_encode($array_struc);
 
-    }
+    // }
 
-    function contact_us(){
-        echo 'This is contact us page. Contact Us template in HTML.';
-    }
+    // function contact_us(){
+    //     echo 'This is contact us page. Contact Us template in HTML.';
+    // }
 
-    function page404(){
-        die('Page not found. Please try some different url.');
-    }
+    // function page404(){
+    //     die('Page not found. Please try some different url.');
+    // }
 
-    //If url is http://localhost/route/home or user is at the maion page(http://localhost/route/)
-    if($request == 'home' or $request == '')
-        home();
-    //If url is http://localhost/route/get_all
-    else if($request == 'get_all')
-        array_de_coordenadas();
-    //If url is http://localhost/route/contact-us
-    else if($request == 'contact-us')
-        contact_us();
-    //If user entered something else
-    else
-        page404();
+    // //If url is http://localhost/route/home or user is at the maion page(http://localhost/route/)
+    // if($request == 'home' or $request == '')
+    //     home();
+    // //If url is http://localhost/route/get_all
+    // else if($request == 'get_all')
+    //     array_de_coordenadas();
+    // //If url is http://localhost/route/contact-us
+    // else if($request == 'contact-us')
+    //     contact_us();
+    // //If user entered something else
+    // else
+    //     page404();
 ?>
 
 
